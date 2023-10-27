@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhodjdaqqm2cj"]
+
+[ext_resource type="Texture2D" uid="uid://c5dirsl2m6eh1" path="res://main_game/sample_car.png" id="1_nvi03"]
+[ext_resource type="Script" path="res://car/sample_movement.gd" id="1_tf76d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21wgv"]
+albedo_texture = ExtResource("1_nvi03")
+
+[sub_resource type="BoxMesh" id="BoxMesh_nqoln"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_roh0t"]
+
+[node name="main_car" type="Node3D"]
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+script = ExtResource("1_tf76d")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="AnimatableBody3D"]
+
+[node name="Car" type="MeshInstance3D" parent="AnimatableBody3D"]
+material_override = SubResource("StandardMaterial3D_21wgv")
+mesh = SubResource("BoxMesh_nqoln")
+
+[node name="Camera3D" type="Camera3D" parent="AnimatableBody3D"]
+transform = Transform3D(0.916907, 0, -0.399101, 0, 1, 0, 0.399101, 0, 0.916907, -0.0126762, 0.0443653, 1.9394)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+shape = SubResource("CapsuleShape3D_roh0t")

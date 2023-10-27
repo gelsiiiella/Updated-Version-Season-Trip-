@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://ddc5gpxod2j4"]
+
+[ext_resource type="Script" path="res://main_game/HeartPy.gd" id="1"]
+[ext_resource type="Script" path="res://main_game/World.gd" id="1_7axet"]
+[ext_resource type="Script" path="res://main_game/Interface.gd" id="1_igtch"]
+[ext_resource type="PackedScene" uid="uid://c8hx5t3o022ng" path="res://road_generator.tscn" id="2_yjvyp"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_yulgn"]
+
+[sub_resource type="Sky" id="Sky_wr544"]
+sky_material = SubResource("PhysicalSkyMaterial_yulgn")
+
+[sub_resource type="Environment" id="Environment_sjway"]
+background_mode = 2
+background_energy_multiplier = 2.09
+sky = SubResource("Sky_wr544")
+ambient_light_source = 3
+ambient_light_color = Color(0.423529, 0.698039, 0.941176, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6pu3"]
+
+[node name="MainGame" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.473111, 0.907378, -0.306388)
+script = ExtResource("1_7axet")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sjway")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+script = ExtResource("1_igtch")
+
+[node name="Distance" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Distance
+"
+
+[node name="Speed" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Speed"
+
+[node name="Timer" type="Timer" parent="Control/VBoxContainer"]
+
+[node name="HeartPy" type="Node" parent="."]
+script = ExtResource("1")
+
+[node name="Heart" type="Label" parent="HeartPy"]
+offset_top = 60.0
+offset_right = 67.0
+offset_bottom = 83.0
+
+[node name="Timer" type="Timer" parent="HeartPy"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 0, 0)
+shape = SubResource("CapsuleShape3D_h6pu3")
+
+[node name="Camera3D" type="Camera3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4978, 0)
+
+[node name="road_generator" parent="." instance=ExtResource("2_yjvyp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.997241, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0.518971, 4.23316, 0)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="speed_changed" from="Control/VBoxContainer" to="road_generator" method="_on_v_box_container_speed_changed"]
