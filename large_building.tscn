@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bioybd2wq80i4"]
+
+[ext_resource type="PackedScene" uid="uid://dsy4i3in2w8kc" path="res://Large Building.glb" id="1_xxr06"]
+
+[node name="Large Building" instance=ExtResource("1_xxr06")]
+
+[node name="large_buildingA" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40103, 0.535452, -0.653883)
