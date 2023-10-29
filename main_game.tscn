@@ -1,0 +1,146 @@
+[gd_scene load_steps=15 format=3 uid="uid://ddc5gpxod2j4"]
+
+[ext_resource type="Script" path="res://main_game/HeartPy.gd" id="1"]
+[ext_resource type="Script" path="res://main_game/World.gd" id="1_7axet"]
+[ext_resource type="Script" path="res://main_game/Interface.gd" id="1_igtch"]
+[ext_resource type="FontFile" uid="uid://b3ofwv72maja2" path="res://road-summer-font/misc/Road Summer Italic-0dca.woff" id="3_i3omu"]
+[ext_resource type="FontFile" uid="uid://fjgdn06ebj4c" path="res://car-lock-font/CarLock-lawX.ttf" id="4_8gfro"]
+[ext_resource type="Texture2D" uid="uid://btygcj20dao1p" path="res://Pixel Buttons/Pixel Buttons/Pause_Idle.png" id="5_l1jjr"]
+[ext_resource type="PackedScene" uid="uid://djxwuwtpo3teh" path="res://main_game/car_move.tscn" id="5_uy6u3"]
+[ext_resource type="PackedScene" uid="uid://dv0ll1sin7bq5" path="res://wheel.tscn" id="6_0072d"]
+[ext_resource type="PackedScene" uid="uid://bioybd2wq80i4" path="res://large_building.tscn" id="6_or1ul"]
+[ext_resource type="Texture2D" uid="uid://b73yi7jmwitrh" path="res://Pixel Buttons/Pixel Buttons/Pause_Pushed.png" id="6_wtu3q"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_yulgn"]
+
+[sub_resource type="Sky" id="Sky_wr544"]
+sky_material = SubResource("PhysicalSkyMaterial_yulgn")
+
+[sub_resource type="Environment" id="Environment_sjway"]
+background_mode = 2
+background_energy_multiplier = 2.09
+sky = SubResource("Sky_wr544")
+ambient_light_source = 3
+ambient_light_color = Color(0.423529, 0.698039, 0.941176, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6pu3"]
+
+[node name="MainGame" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.473111, 0.907378, -0.306388)
+script = ExtResource("1_7axet")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sjway")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 23.0
+offset_right = 207.0
+offset_bottom = 88.0
+script = ExtResource("1_igtch")
+
+[node name="Distance" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.647059, 0, 1)
+theme_override_fonts/font = ExtResource("3_i3omu")
+theme_override_font_sizes/font_size = 30
+text = "Distance
+"
+
+[node name="DistanceValue" type="Label" parent="Control/VBoxContainer/Distance"]
+layout_mode = 0
+offset_left = 162.0
+offset_top = 7.0
+offset_right = 313.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("4_8gfro")
+theme_override_font_sizes/font_size = 25
+
+[node name="Speed" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.647059, 0, 1)
+theme_override_fonts/font = ExtResource("3_i3omu")
+theme_override_font_sizes/font_size = 30
+text = "Speed"
+
+[node name="SpeedValue" type="Label" parent="Control/VBoxContainer/Speed"]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 7.0
+offset_right = 360.0
+offset_bottom = 43.0
+theme_override_fonts/font = ExtResource("4_8gfro")
+theme_override_font_sizes/font_size = 25
+
+[node name="Timer" type="Timer" parent="Control/VBoxContainer"]
+
+[node name="Button" type="TextureButton" parent="Control"]
+layout_mode = 0
+offset_left = 1020.0
+offset_top = 21.0
+offset_right = 1084.0
+offset_bottom = 85.0
+action_mode = 0
+button_mask = 0
+texture_normal = ExtResource("5_l1jjr")
+texture_pressed = ExtResource("6_wtu3q")
+
+[node name="HeartPy" type="Node" parent="."]
+script = ExtResource("1")
+
+[node name="Heart" type="Label" parent="HeartPy"]
+offset_left = 443.0
+offset_top = 44.0
+offset_right = 622.0
+offset_bottom = 89.0
+theme_override_colors/font_color = Color(1, 0.647059, 0, 1)
+theme_override_fonts/font = ExtResource("3_i3omu")
+theme_override_font_sizes/font_size = 30
+text = "Heart Rate
+"
+
+[node name="HeartValue" type="Label" parent="HeartPy/Heart"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.562
+anchor_top = 0.633
+anchor_right = 1.562
+anchor_bottom = 1.0
+offset_left = -85.598
+offset_top = -21.485
+offset_right = 156.402
+offset_bottom = 7.0
+theme_override_fonts/font = ExtResource("4_8gfro")
+theme_override_font_sizes/font_size = 25
+
+[node name="Timer" type="Timer" parent="HeartPy"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 0, 0)
+shape = SubResource("CapsuleShape3D_h6pu3")
+
+[node name="Camera3D" type="Camera3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4978, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0.518971, 4.23316, 0)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Car" parent="Node3D" instance=ExtResource("5_uy6u3")]
+
+[node name="wheel" parent="Node3D" instance=ExtResource("6_0072d")]
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="Large Building" parent="Background" instance=ExtResource("6_or1ul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -14, 34)
